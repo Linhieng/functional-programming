@@ -1,0 +1,62 @@
+<div id="msg"></div>
+
+<script>
+  const db = {
+    get(ssn) {
+      if (ssn === '444-44-4444')
+        return {
+          ssn: '444-44-4444',
+          firstName: 'Li',
+          lastName: 'Sa',
+        }
+      return null
+    },
+  }
+  // 命令式
+  // const elementId = 'msg'
+  // function showStudent(ssn) {
+  //   const student = db.get(ssn) /* 从外部访问数据, 此处可能是同步也可能是异步 */
+  //   if (student != null) {
+  //     document.querySelector(`#${elementId}`).innerHTML = /* 获取外部变量 elementId */
+  //       `${student.ssn},
+  //       ${student.firstName},
+  //       ${student.lastName}`
+  //   } else {
+  //     throw new Error('Student not found!') /* 当出问题时会抛出异常, 程序会突然结束 */
+  //   }
+  // }
+  // showStudent('444-44-4444')
+
+  // 函数式
+  const run = function(f, g, h) {
+    return function(x) {
+      return f(g(h(x)))
+    }
+  }
+  const curry = function(f) { /* from: https://www.cnblogs.com/mortre/p/6427799.html */
+    const var_num = f.length
+    return function(...args) {
+      if (args.length >= var_num) {
+        return f.apply(null, args)
+      }
+      return function(...new_args) {
+        return f.apply(null, args.concat(new_args))
+      }
+    }
+  }
+  const find = curry(function(db, id) {
+    const obj = db.get(id)
+    if (obj === null) {
+      throw new Error('Object not found!')
+    }
+    return obj
+  })
+  const csv = function(student) {
+    return `${student.ssn}, ${student.firstName}, ${student.lastName}`
+  }
+  const append = curry(function(elementId, info) {
+    document.querySelector(elementId).innerHTML = info
+  })
+  const showStudent = run(append('#msg'), csv, find(db))
+  showStudent('444-44-4444')
+</script>
