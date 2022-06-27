@@ -1,0 +1,23 @@
+{
+  "name": "functional-programming",
+  "version": "1.0.0",
+  "description": "《javascript 函数式编程指南》",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Linhieng/functional-programming.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Linhieng/functional-programming/issues"
+  },
+  "homepage": "https://github.com/Linhieng/functional-programming#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
